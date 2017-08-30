@@ -1,11 +1,13 @@
 /** 
- * Paginate Service
+ * @name: Paginate Service
  *
- * Description:
- * make paginated Array from Array
+ * @description:
+ * The service makes pagination.
  */
 
 /**
+ * @description: The method creates a paginated array.
+ *
  * @takes
  * _array: Array<any>
  * itemsPerPage: number
@@ -43,10 +45,12 @@ function getPages( _array, itemsPerPage ) {
 }
 
 /**
+ * @description: Calculates page with dirrect page index.
+ *
  * @takes
- * _array: Array<any>
- * itemsPerPage: number,
- * pageIndex: number
+ *   _array: Array<any>
+ *   itemsPerPage: number,
+ *   pageIndex: number
  * 
  * @returns
  * {
@@ -88,6 +92,8 @@ function getPage(_array, itemsPerPage, pageIndex) {
 }
 
 /**
+ * @description: Cuts and returns a range from an array.
+ *
  * @takes
  * _array: Array<any>,
  * beginIndex: number,
@@ -109,36 +115,35 @@ function getRangeItems(_array, beginIndex, endIndex) {
 	return resultArray;
 }
 
-/** Tests
- */
+/** Tests */
+	let testPages = [ 'p0', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11','p12', 'p13', 'p14', 'p15', 'p16' ];
+	let itemsPerPage = 5;
 
-let testPages = [ 'p0', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11','p12', 'p13', 'p14', 'p15', 'p16' ];
-let itemsPerPage = 5;
+	function test_getPages() {
+		console.log('\n * test * test_getPages()');
+		console.log('Source array: \n', testPages);
 
-function test_getPages() {
-	console.log('\n * test * test_getPages()');
-	console.log('Source array: \n', testPages);
+		let paginatedArray = getPages(testPages, itemsPerPage);
+		console.log('Items per page must be (last page can be less): ', itemsPerPage);
+		console.log('Paginated array: \n', paginatedArray);
 
-	let paginatedArray = getPages(testPages, itemsPerPage);
-	console.log('Items per page must be (last page can be less): ', itemsPerPage);
-	console.log('Paginated array: \n', paginatedArray);
+		console.log('end * test * getPages() ');
+	}
+	test_getPages();
 
-	console.log('end * test * getPages() ');
-}
-test_getPages();
+	function test_getPage() {
+		console.log('\n * test * test_getPage()');
+		console.log('Source array: \n', testPages);
 
-function test_getPage() {
-	console.log('\n * test * test_getPage()');
-	console.log('Source array: \n', testPages);
+		let pageIndex = 2;
+		let page = getPage(testPages, itemsPerPage, pageIndex);
+		console.log('Items per page must be (last page can be less): ', itemsPerPage);
+		console.log('page # ' + pageIndex + ': \n', page);
 
-	let pageIndex = 2;
-	let page = getPage(testPages, itemsPerPage, pageIndex);
-	console.log('Items per page must be (last page can be less): ', itemsPerPage);
-	console.log('page # ' + pageIndex + ': \n', page);
-
-	console.log('end * test * getPage()');
-}
-test_getPage();
+		console.log('end * test * getPage()');
+	}
+	test_getPage();
+/** end - Tests */
 
 let PaginateService = {
 	getPage: getPage,

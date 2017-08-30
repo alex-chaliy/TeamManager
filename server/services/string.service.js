@@ -2,11 +2,11 @@
  * @name: String Service
  *
  * @description:
- * string methods
+ * The service augments string methods.
  */
 
 /**
- * @description: generates random string
+ * @description: The method generates random string.
  * @takes string
  * @returns string
  */
@@ -23,9 +23,8 @@ function saltGenerate( length ) {
 	return s;
 }
 
-
 /**
- * @description: cleans string from special symbols
+ * @description: Cleans string from special symbols.
  * @takes string
  * @returns string
  */
@@ -43,7 +42,8 @@ function clean ( str ) {
 /** end - Tests */
 
 let StringService = {
-	saltGenerate: saltGenerate
+	saltGenerate: saltGenerate,
+	clean: clean
 }
 
 module.exports = StringService;

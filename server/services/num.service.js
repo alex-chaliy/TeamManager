@@ -2,11 +2,11 @@
  * @name: Num Service
  *
  * @description:
- * number methods
+ * The service augments the Number methods.
  */
 
 /**
- * @description: calculates random number
+ * @description: The method calculates a random number.
  * @takes
  *   min: number,
  *   max: number

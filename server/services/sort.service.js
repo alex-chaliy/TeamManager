@@ -1,28 +1,32 @@
 /** 
- * Sort Service
+ * @name: Sort Service
  *
- * Description:
- * sort methods
+ * @description:
+ * The service contains sort methods.
  */
 
 /**
+ * @description: The method sorts arrays of any types by any property(if element is object).
+ *
+ * @explain sortBy
+ *   'String' – sort by string by Increase (a→z)
+ *   'string' – sort by string by Reduce   (z→a)
+ *   'Number' – sort by number by Increase (-∞ → ∞)
+ *   'number' – sort by number by Reduce   (∞ → -∞)
+ *
+ * @explain propertyTrackBy
+ *   sort method will track by this property name.
+ *   sort by date:
+ *   [{date: 1503054414658}, {date: 1503054412731}, {date: 1503054491136}, {date: 1503054469988}]
+ *
  * @takes
- * _array: Array<Object>
- * itemsPerPage: number
+ *   _array: Array<Object>
+ *   itemsPerPage: number
  * 
  * @returns
- * array_: Array<Object>
- * sortBy: string,
- * propertyTrackBy: string // sort method will track by this property name.
- *                         // sort by date:
- *                         // [{date: 1503054414658}, {date: 1503054412731}, {date: 1503054491136}, {date: 1503054469988}]
- */
-
-/**
- * 'String' - sort by string by Increase (a→z)
- * 'string' - sort by string by Reduce   (z→a)
- * 'Number' - sort by number by Increase (-∞ → ∞)
- * 'number' - sort by number by Reduce   (∞ → -∞)
+ *   array_: Array<Object>
+ *   sortBy: string, // see @explain sortBy
+ *   propertyTrackBy: string // see @explain propertyTrackBy
  */
 function sort( array_, sortBy, propertyTrackBy ) {
 	// unbind incoming array_
@@ -93,46 +97,45 @@ function sort( array_, sortBy, propertyTrackBy ) {
 	return sortedArray;
 }
 
-/** Tests
- */
+/** Tests */
+	let testArray = [
+	{ firstName: 'The',      numberValue: 51, date: 1503054469988},
+	{ firstName: 'And',      numberValue: 37, date: 1503057628611},
+	{ firstName: 'Edward',   numberValue: 13, date: 1503057638606},
+	{ firstName: 'Sharpe',   numberValue: 37, date: 1503054412731},
+	{ firstName: 'Zeros',    numberValue: -7, date: 1503054414658},
+	{ firstName: 'Magnetic', numberValue: 45, date: 1503054491136}
+	];
 
-let testArray = [
-  { firstName: 'The',      numberValue: 51, date: 1503054469988},
-  { firstName: 'And',      numberValue: 37, date: 1503057628611},
-  { firstName: 'Edward',   numberValue: 13, date: 1503057638606},
-  { firstName: 'Sharpe',   numberValue: 37, date: 1503054412731},
-  { firstName: 'Zeros',    numberValue: -7, date: 1503054414658},
-  { firstName: 'Magnetic', numberValue: 45, date: 1503054491136}
-];
+	function test_sort() {
+		console.log('\n * test * sort()');
+		console.log('\nSource Unsorted Array: \n', testArray);
 
-function test_sort() {
-	console.log('\n * test * sort()');
-	console.log('\nSource Unsorted Array: \n', testArray);
+		// firstName: string
+			let sorted_by_firstName_by_increase =   sort(testArray, 'String', 'firstName');
+			console.log(`\nSorted by 'firstName' – A → Z: \n`, sorted_by_firstName_by_increase);
 
-	// firstName: string
-		let sorted_by_firstName_by_increase =   sort(testArray, 'String', 'firstName');
-		console.log(`\nSorted by 'firstName' – A → Z: \n`, sorted_by_firstName_by_increase);
+			let sorted_by_firstName_by_reduce =     sort(testArray, 'string', 'firstName');
+			console.log(`\nSorted by 'firstName' – Z → A: \n`, sorted_by_firstName_by_reduce);
 
-		let sorted_by_firstName_by_reduce =     sort(testArray, 'string', 'firstName');
-		console.log(`\nSorted by 'firstName' – Z → A: \n`, sorted_by_firstName_by_reduce);
+		// numberValue: number
+			let sorted_by_numberValue_by_increase = sort(testArray, 'Number', 'numberValue');
+			console.log(`\nSorted by 'numberValue' – (-∞ → ∞) : \n`, sorted_by_numberValue_by_increase);
 
-	// numberValue: number
-		let sorted_by_numberValue_by_increase = sort(testArray, 'Number', 'numberValue');
-		console.log(`\nSorted by 'numberValue' – (-∞ → ∞) : \n`, sorted_by_numberValue_by_increase);
+			let sorted_by_numberValue_by_reduce =   sort(testArray, 'number', 'numberValue');
+			console.log(`\nSorted by 'numberValue' – (∞ → -∞) : \n`, sorted_by_numberValue_by_increase);
 
-		let sorted_by_numberValue_by_reduce =   sort(testArray, 'number', 'numberValue');
-		console.log(`\nSorted by 'numberValue' – (∞ → -∞) : \n`, sorted_by_numberValue_by_increase);
+		// date: number (timestamp)
+			let sorted_by_date_by_increase =        sort(testArray, 'Number', 'date');
+			console.log(`\nSorted by 'value' – Old → New (-∞ → ∞) : \n`, sorted_by_date_by_increase);
 
-	// date: number (timestamp)
-		let sorted_by_date_by_increase =        sort(testArray, 'Number', 'date');
-		console.log(`\nSorted by 'value' – Old → New (-∞ → ∞) : \n`, sorted_by_date_by_increase);
+			let sorted_by_date_by_reduce =          sort(testArray, 'number', 'date');
+			console.log(`\nSorted by 'value' – New → Old (∞ → -∞) : \n`, sorted_by_date_by_reduce);
 
-		let sorted_by_date_by_reduce =          sort(testArray, 'number', 'date');
-		console.log(`\nSorted by 'value' – New → Old (∞ → -∞) : \n`, sorted_by_date_by_reduce);
-
-	console.log('end * test * sort()');
-}
-test_sort();
+		console.log('end * test * sort()');
+	}
+	test_sort();
+/** end - Tests */
 
 let SortService = {
 	sort: sort
