@@ -2,7 +2,7 @@
  * Sort Service
  *
  * Description:
- * make paginated Array from Array
+ * sort methods
  */
 
 /**
