@@ -2,7 +2,7 @@
  * @name: String Service
  *
  * @description:
- * The service augments string methods.
+ * The service augments the String methods.
  */
 
 /**

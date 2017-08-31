@@ -3,7 +3,7 @@
 /*************
 * Controllers *
 **************/
-const userController = require('./controllers/user');
+const userController = require('./controllers/user.controller');
 
 const _ = require('lodash');
 const bodyParser = require('body-parser');
@@ -78,6 +78,6 @@ db.once('open', () => {
 	app.get   ('/users' ,       userController.getAll);
 	app.get   ('/users/:id' ,   userController.get);
 	app.post  ('/users' ,       userController.create);
-	app.put   ('/user/:id' ,    userController.update);
-	app.delete('/users//:id' ,  userController.remove);
+	app.put   ('/users/:id' ,   userController.update);
+	app.delete('/users/:id' ,   userController.remove);
 /** end - User entity **/

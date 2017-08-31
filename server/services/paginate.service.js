@@ -2,18 +2,17 @@
  * @name: Paginate Service
  *
  * @description:
- * The service makes pagination.
+ * The service makes a pagination.
  */
 
 /**
  * @description: The method creates a paginated array.
  *
  * @takes
- * _array: Array<any>
- * itemsPerPage: number
+ *   _array: Array<any>
+ *   itemsPerPage: number
  * 
- * @returns
- * Array<{
+ * @returns Array<{
  *	 data: Array<any>,
  *	 page: number // current page (numeratiom from 0)
  * }>
@@ -45,10 +44,10 @@ function getPages( _array, itemsPerPage ) {
 }
 
 /**
- * @description: Calculates page with dirrect page index.
+ * @description: Calculates a page with dirrect page index.
  *
  * @takes
- *   _array: Array<any>
+ *   _array: Array<any>,
  *   itemsPerPage: number,
  *   pageIndex: number
  * 
