@@ -1,6 +1,4 @@
-const TOP_CASINOS__MAX: number = 10000;
-const RANDOM_CASIOS__AMOUNT: number = 5;
+const TEST_CONST__MAX: number = 10000;
 export {
-    TOP_CASINOS__MAX,
-    RANDOM_CASIOS__AMOUNT
+    TEST_CONST__MAX
 };
