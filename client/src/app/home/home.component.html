@@ -1,0 +1,20 @@
+<div class="container-fluid">
+        <div class="captionBlock" *ngIf="!streams[0]">
+            <h2 class="captionBlock-title"> There is no employees now. </h2>
+        </div>
+
+        <div class="tableRow" *ngFor="let user of users">
+            {{ user.nameFirst }}
+        </div>
+</div>
+
+<div class="_js_loadingBlock loadingBlock loadingBlock--invisible">
+    <div class="loadingBlock-inside">
+        <div class="loadingBlock-img">
+            <!-- TODO: get resource from current project server, not from "http://77.220.213.35:8080/img/cas-1" -->
+            <img src="http://77.220.213.35:8080/img/cas-1/ui/anim/spinner.svg" alt="loading animation">
+        </div>
+        <br>
+        <h3 class="loadingBlock-title"> Loading employees... </h3>
+    </div>
+</div>
