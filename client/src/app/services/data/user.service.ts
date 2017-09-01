@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {User} from '../../models/user.model';
+import '../../shared/app.vendor';
 
 @Injectable()
 export class UserService {
