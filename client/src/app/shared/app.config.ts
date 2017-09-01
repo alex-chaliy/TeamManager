@@ -11,5 +11,5 @@ function logProd() {
     console.warn('PRODUCTION mode is now.');
 	console.warn('\n if you want to be in DEVELOPMENT mode & run your app on localhost: ', '\n set NODE_ENV=DEV \n');
 }
-process.env.NODE_ENV == 'DEV' && logDev;
-process.env.NODE_ENV != 'DEV' && logProd;
+process.env.NODE_ENV == 'DEV' && logDev();
+process.env.NODE_ENV != 'DEV' && logProd();
