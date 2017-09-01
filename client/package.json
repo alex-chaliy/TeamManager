@@ -1,11 +1,16 @@
 {
-  "name": "casino",
+  "name": "team_manager",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "on-local-api": "ng serve --env=localServer",
+    "dev":          "ng serve --env=dev",
+    "prod":         "ng serve --env=prod",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build-prod": "ng build --prod --env=prod",
+    "build-dev":  "ng build --env=dev",
+    "build-for-local-api": "ng build --env=localServer",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
