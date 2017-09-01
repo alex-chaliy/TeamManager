@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Stream } from '../models/stream';
-import { StreamService } from '../shared/stream.service';
-import {NavigationCancel, Router} from '@angular/router';
+import { User } from '../models/user.model';
+import { UserService } from '../services/data/user.service';
+import { NavigationCancel, Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -12,18 +12,16 @@ import {NavigationCancel, Router} from '@angular/router';
     ]
 })
 export class HomeComponent implements OnInit {
-    public streams: Stream[] = [];
-    public shadowedStreams = [];
+    public users: User[] = [];
 
     constructor(
-        public streamService: StreamService,
+        public _userService: UserService,
         private _router: Router
     ) {
     }
 
     ngOnInit() {
-        this.streamService.currentStreamPage = 0;
-        this.getAllShadowedStreams();
+        this.getUsers();
 
         /* fix width troubles - start */
             // резались карточки со стримами на Iphone 5 (w: 320px)
@@ -33,58 +31,22 @@ export class HomeComponent implements OnInit {
         /* fix width troubles - end */
     }
 
+    // TODO: вынести в отделный сервис, чтобы этот метод можно было внедрять в другие страницы без копипаста
     public toggleLoadingBlock() {
         let loadingBlock = document.querySelector('._js_loadingBlock');
         loadingBlock.classList.toggle('loadingBlock--invisible');
     }
 
-    public getStreams() {
+    public getUsers() {
         this.toggleLoadingBlock();
-        this.streamService.getAllStreams()
+        this._userService.getAllUsers()
             .then((result) => {
                 this.toggleLoadingBlock();
-                const streams = result
-                    .filter((s) => !this.shadowedStreams
-                        .find((ss) => ss.excepted_id === s.idStream));
-                this.streams = (this.streams.length > 0) ? this.streams.concat(streams) :
-                    streams;
+                this.users = result;
             })
             .catch((error) => {
                 this.toggleLoadingBlock();
                 console.log(error);
             })
-    }
-
-    public getAllShadowedStreams () {
-        this.streamService.getShadowedStreamIdS()
-            .then((streams) => {
-                this.shadowedStreams = streams;
-                this.getStreams();
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
-    public detectVideoSource(stream: Stream) {
-        this.streamService.comesFrom = (stream.streamLink.search('twitch') !== -1) ?
-            'twitch' : 'youtube';
-        this.streamService.selectedStreamId = stream.idStream;
-    }
-
-    public invertSortType () {
-        this.streamService.isReverseSort = !this.streamService.isReverseSort;
-        this.streamService.currentStreamPage = 0;
-        this.streams = [];
-        this.getAllShadowedStreams();
-    }
-
-    public loadMoreStreams () {
-        this.streamService.currentStreamPage++;
-        this.getAllShadowedStreams()
-    }
-
-    public reformatUrl (url: string) {
-        return url.replace(/ /g, '-');
     }
 }
