@@ -1,12 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {User} from '../../models/user.model';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { User } from '../../models/user.model';
 import '../../shared/app.vendor';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UserService {
     // TODO: make api routes config depend on NODE_ENV
-    private baseUrl = 'http://77.220.213.35:3030/v1/users';
+    private baseUrl = environment.apiUrl + 'users';
 
     constructor(
         private _http: Http

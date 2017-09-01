@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "casino"
+    "name": "team_manager"
   },
   "apps": [
     {
@@ -25,6 +25,7 @@
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
+        "localServer": "environments/environment.localServer.ts",
         "prod": "environments/environment.prod.ts"
       }
     }
