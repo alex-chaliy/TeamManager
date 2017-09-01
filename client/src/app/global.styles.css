@@ -9,8 +9,6 @@ body, html {
 
 .mainContentWrapper {
   position: relative;
-  padding-top: 80px;
-  padding-left: 270px;
   display: block;
   min-height: 600px;
   width: 100%;
@@ -199,3 +197,18 @@ body, html {
     text-align: center;
   }
 /* loadingBlock - end */
+
+
+/* empty block - start */
+  .emptyBlock-title {
+    color: #aaa;
+    text-align: center;
+    font-size: 26px;
+  }
+  .emptyBlock img {
+    width: 256px;
+    height: auto;
+    display: table;
+    margin: 50px auto;
+  }
+/* empty block - end */
