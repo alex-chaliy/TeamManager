@@ -1,11 +1,53 @@
+<div class="_js_notifyBlock notifyBlock notifyBlock--invisible">
+    <div class="notifyBlock-inside">
+        <h4 class="captionBlock-title"> {{ notifyText }} </h4>
+    </div>
+</div>
+
 <div class="container-fluid">
         <div class="captionBlock" *ngIf="!users[0]">
             <h2 class="captionBlock-title"> There is no employees now. </h2>
         </div>
 
-        <div class="tableRow" *ngFor="let user of users">
-            {{ user.nameFirst }}
+        <!--debug-->
+            <!--<br/> {{ userToUpdate | json }} <br/>-->
+            <!--{{ prevStateUserToUpdate | json }}-->
+        <!-- end - debug-->
+        <div class="editBlock"*ngIf="editMode">
+            <input type="text" [(ngModel)]="userToUpdate.nameFirst">
+            <button class="_btn _btn--blue" (click)="updateUser( userToUpdate )" title="Save Changes"> <i class="material-icons">save</i> </button>
+            <button class="_btn _btn--white" (click)="cancelEdit()" title="Cancel Changes"> <i class="material-icons">cancel</i> </button>
         </div>
+
+        <div class="_table" [ngClass]="{ '_table--minimized' : isUsersTableMinimized }">
+            <div class="_table-row _table-row--dark clearfix">
+                <div class="_table-field col-md-2"> Name </div>
+                <div class="_table-field col-md-2"> Age </div>
+                <div class="_table-field col-md-2"> Skill </div>
+                <div class="_table-field col-md-2"> Level </div>
+                <div class="_table-field col-md-2"> &nbsp; </div>
+                <div class="_table-field col-md-2">
+                    <button class="_btn _btn--white" (click)="toggleTable()" title="{{ isUsersTableMinimized ? 'Expand' : 'Minimize' }} Table">
+                        <i class="material-icons"> {{ 'expand_' + (isUsersTableMinimized ? 'more' : 'less') }} </i>
+                    </button>
+                </div>
+            </div>
+            <div class="_table-body">                
+                <div class="_table-row clearfix" [ngClass]="{ '_table-row--grey' : i % 2 == 0 }" *ngFor="let user of users; let i = index">
+                    <div class="_table-field col-md-2"> {{ user.nameFirst }} {{ user.nameLast }} </div>
+                    <div class="_table-field col-md-2"> {{ user.age }} </div>
+                    <div class="_table-field col-md-2"> {{ user.skill.name }} </div>
+                    <div class="_table-field col-md-2"> {{ user.skill.level }} </div>
+                    <div class="_table-field col-md-2">
+                        <button class="_btn _btn--red" (click)="deleteUser( user.idUser, i )" title="Delete User"> <i class="material-icons">delete</i> </button>
+                    </div>
+                    <div class="_table-field col-md-2">
+                        <button class="_btn _btn--white" (click)="startEdit( user, i )" title="Start Edit"> <i class="material-icons">edit</i> </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </div>
 
 <div class="_js_loadingBlock loadingBlock loadingBlock--invisible">
