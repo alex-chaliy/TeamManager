@@ -98,6 +98,8 @@ body, html {
 
   .captionBlock-title {
     text-align: center;
+    color: inherit;
+    margin: 0;
   }
   .captionBlock-titleImage img {
     display: inline-block;
@@ -195,6 +197,41 @@ body, html {
     line-height: 1.5em;
     width: 100%;
     text-align: center;
+  }
+/* loadingBlock - end */
+
+
+/*  - start */
+  .notifyBlock {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    display: table; /* Safari */
+    width: 100%;
+    padding: 8px;
+    background-color: rgba(0,0,0, .5);
+    transition: background-color .3s;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0, .2)
+  }
+  .notifyBlock--invisible {
+    z-index: -9999;
+    top: -99999px;
+    left: -99999px;
+    background-color: rgba(255,255,255, 0);
+  }
+  .notifyBlock--black  { background-color: rgba(0,0,0, .95); }
+  .notifyBlock--red    { background-color: rgba(255,50,0, .95); }
+  .notifyBlock--green  { background-color: rgba(30,220,50, .95); }
+  .notifyBlock--yellow { background-color: rgba(255,220,0, .95); }
+  .notifyBlock--blue   { background-color: rgba(0,50,255, .95); }
+  .notifyBlock--purple { background-color: rgba(190,0,200, .95); }
+
+  .notifyBlock-inside {
+    position: relative;
+    display: table;
+    width: 100%;
   }
 /* loadingBlock - end */
 

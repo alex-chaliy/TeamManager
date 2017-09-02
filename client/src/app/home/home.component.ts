@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../models/user.model';
 import { UserService } from '../services/data/user.service';
 import { NavigationCancel, Router } from '@angular/router';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-home',
@@ -13,12 +14,14 @@ import { NavigationCancel, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
     public users: User[] = [];
+    @Input() public userToUpdate: User;
+    private editMode: boolean = false;
+    public notifyText: string;
 
     constructor(
         public _userService: UserService,
         private _router: Router
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.getUsers();
@@ -37,7 +40,27 @@ export class HomeComponent implements OnInit {
         loadingBlock.classList.toggle('loadingBlock--invisible');
     }
 
+    // TODO: вынести в отделный сервис, чтобы этот метод можно было внедрять в другие страницы без копипаста
+    public notify( text: string = 'Notification', color: string = 'black', duration: number = 3000 ) {
+        let colors: Array<string> = [ 'black', 'red', 'green', 'yellow', 'blue', 'purple' ];
+        let notifyBlock = document.querySelector('._js_notifyBlock');
+
+        this.notifyText = text;
+        notifyBlock.classList.toggle('notifyBlock--invisible');
+
+        _.forEach( colors, _color => {
+            notifyBlock.classList.remove('notifyBlock--' + _color);
+        });
+        notifyBlock.classList.add('notifyBlock--' + color);
+
+        setTimeout(() => {
+            notifyBlock.classList.toggle('notifyBlock--invisible');
+            notifyBlock.classList.toggle('notifyBlock--' + color);
+        }, duration);
+    }
+
     public getUsers() {
+        this.userToUpdate = new User();
         this.toggleLoadingBlock();
         this._userService.getAllUsers()
             .then((result) => {
@@ -47,6 +70,50 @@ export class HomeComponent implements OnInit {
             .catch((error) => {
                 this.toggleLoadingBlock();
                 console.log(error);
+            })
+    }
+
+    public addUser() {
+        this.toggleLoadingBlock();
+        this._userService.getAllUsers()
+            .then((result) => {
+                this.toggleLoadingBlock();
+                this.users = result;
+            })
+            .catch((error) => {
+                this.toggleLoadingBlock();
+                console.log(error);
+            })
+    }
+
+    public startEdit( user: User ) {
+        this.userToUpdate = user;
+        this.editMode = true;
+    }
+    public cancelEdit() {
+        this.userToUpdate = <User>{};
+        this.editMode = false;
+    }
+    public updateUser( user: User ) {
+        this._userService.updateUser( user, user.idUser )
+            .then((result) => {
+                this.notify('User was successfully updated.', 'green');
+            })
+            .catch((error) => {
+                console.log(error);
+                this.notify('Server error while user updating.', 'red');
+            })
+    }
+
+    public deleteUser( userId: string, userIndex: number ) {
+        this._userService.deleteUser( userId )
+            .then((result) => {
+                this.users.splice(userIndex, 1);
+                this.notify('User was successfully deleted.', 'green');
+            })
+            .catch((error) => {
+                console.log(error);
+                this.notify('Server error while user deleting.', 'red');
             })
     }
 }

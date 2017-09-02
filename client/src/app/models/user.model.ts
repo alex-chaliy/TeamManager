@@ -42,6 +42,7 @@ export class User implements IUser {
         this.nameFirst = nameFirst || '';
         this.nameLast = nameLast || '';
         this.age = age || 18;
+        skill = skill || {};
         this.skill = {
             level: skill.level || 1,
             name: skill.name || ''
