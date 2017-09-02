@@ -14,9 +14,12 @@ import * as _ from 'lodash';
 })
 export class HomeComponent implements OnInit {
     public users: User[] = [];
+    public indexUserToUpdate: number;
+    public prevStateUserToUpdate: User;
     @Input() public userToUpdate: User;
     private editMode: boolean = false;
     public notifyText: string;
+    public isUsersTableMinimized: boolean = false;
 
     constructor(
         public _userService: UserService,
@@ -86,17 +89,20 @@ export class HomeComponent implements OnInit {
             })
     }
 
-    public startEdit( user: User ) {
+    public startEdit( user: User, userIndex: number ) {
+        this.indexUserToUpdate = userIndex;
+        this.prevStateUserToUpdate = JSON.parse( JSON.stringify( user ));
         this.userToUpdate = user;
         this.editMode = true;
     }
     public cancelEdit() {
-        this.userToUpdate = <User>{};
+        this.userToUpdate = new User();
+        // this.users[ this.indexUserToUpdate ] = this.prevStateUserToUpdate;
         this.editMode = false;
     }
     public updateUser( user: User ) {
         this._userService.updateUser( user, user.idUser )
-            .then((result) => {
+            .then((user) => {
                 this.notify('User was successfully updated.', 'green');
             })
             .catch((error) => {
@@ -115,5 +121,9 @@ export class HomeComponent implements OnInit {
                 console.log(error);
                 this.notify('Server error while user deleting.', 'red');
             })
+    }
+
+    public toggleTable() {
+        this.isUsersTableMinimized = !this.isUsersTableMinimized;
     }
 }

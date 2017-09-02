@@ -81,7 +81,7 @@ export class UserService {
     }
 
     public updateUser(data: User, id: string) {
-        return this._http.put(this.baseUrl + 'update/' + id, data)
+        return this._http.put(this.baseUrl + '/' + id, data)
             .toPromise()
             .then((response) => {
                 const body = response.json().data;

@@ -1,8 +1,13 @@
 body, html {
   height: 100%;
+  /*font-family: 'Roboto', sans-serif;*/
 }
 
 /* reset styles - start */
+  .material-icons {
+    line-height: inherit;
+    font-size: 21px;
+  }
   /* reset here */
 /* reset styles - end */
 
@@ -77,6 +82,14 @@ body, html {
   }
   ._btn--red:hover {
     background: #e00;
+  }
+
+  ._btn--white {
+    background: #fff;
+    color: #333
+  }
+  ._btn--white:hover {
+    background: #eee;
   }
 /* _btn - end */
 
@@ -249,3 +262,34 @@ body, html {
     margin: 50px auto;
   }
 /* empty block - end */
+
+/* table */
+  ._table {
+    margin: 20px 0;
+    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .2);
+  }
+  ._table--minimized ._table-body {
+    overflow: hidden;
+    height: 0;
+  }
+  ._table-row {
+    clear: both;
+    /* border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee; */
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    /*color: #000;*/
+  }
+  ._table-row--grey { background-color: #eee; }
+  ._table-row--dark {
+    background-color: #333;
+    color: #fff;
+  }
+  ._table-field {
+    float: left;
+    text-align: center;
+    color: inherit;
+  }
+/* end - table */
