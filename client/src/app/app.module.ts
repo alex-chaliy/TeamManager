@@ -16,6 +16,7 @@ import { HttpService } from './services/data/http.service';
 import { UserService } from './services/data/user.service';
 import { CookieService } from 'angular2-cookie/core';
 import { ReformatStringService } from './services/reformat.string.service';
+import { ArrayService } from './services/array.service';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { ReformatStringService } from './services/reformat.string.service';
         HttpService,
         UserService,
         ReformatStringService,
+        ArrayService,
         CookieService
     ],
     bootstrap: [AppComponent]
