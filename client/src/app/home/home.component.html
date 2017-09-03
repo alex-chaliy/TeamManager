@@ -55,8 +55,8 @@
 
         <div class="topBlock">
             <div class="searchBlock">
-                <button class="searchBlock-button"> <i class="material-icons"> search </i> </button>
-                <input type="text" class="form-control searchBlock-input">
+                <button class="searchBlock-button" (click)="filterUsers()" > <i class="material-icons"> search </i> </button>
+                <input type="text" class="form-control searchBlock-input" placeholder="Name, Surname or Skill..." [(ngModel)]="searchValue">
             </div>
         </div>
 
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="_table-body">                
-                <div class="_table-row clearfix" [ngClass]="{ '_table-row--grey' : i % 2 == 0 }" *ngFor="let user of users; let i = index">
+                <div class="_table-row clearfix" [ngClass]="{ '_table-row--grey' : i % 2 == 0 }" *ngFor="let user of filteredUsers; let i = index">
                     <div class="_table-field col-sm-2"> {{ user.name_first }} {{ user.name_last }} </div>
                     <div class="_table-field col-sm-2"> {{ user.age }} </div>
                     <div class="_table-field col-sm-2"> {{ user.skill.name }} </div>

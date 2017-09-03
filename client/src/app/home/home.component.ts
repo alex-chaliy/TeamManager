@@ -15,6 +15,7 @@ import * as _ from 'lodash';
 })
 export class HomeComponent implements OnInit {
     public users: User[] = [];
+    public filteredUsers: User[] = [];
 
     public indexUserToUpdate: number;
     public prevStateUserToUpdate: User;
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
 
     public notifyText: string;
     public isUsersTableMinimized: boolean = false;
+    @Input() public searchValue: string;
 
     constructor(
         public _userService: UserService,
@@ -77,6 +79,7 @@ export class HomeComponent implements OnInit {
             .then((result) => {
                 this.toggleLoadingBlock();
                 this.users = result;
+                this.filteredUsers = result;
             })
             .catch((error) => {
                 this.toggleLoadingBlock();
@@ -139,5 +142,16 @@ export class HomeComponent implements OnInit {
 
     public toggleTable() {
         this.isUsersTableMinimized = !this.isUsersTableMinimized;
+    }
+
+    public filterUsers() { // sv - search value
+        let sv: string = this.searchValue.toLowerCase();
+        this.filteredUsers = _.filter( this.users, (user: User) => {
+            let expression: boolean = user.name_first.toLowerCase().indexOf( sv ) > -1 ||
+                user.name_last.toLowerCase().indexOf( sv ) > -1 ||
+                user.skill.name.toLowerCase().indexOf( sv ) > -1;
+            return expression;
+            //  || sv == user.name_last || sv == user.skill.name
+        });
     }
 }
