@@ -84,15 +84,15 @@ export class HomeComponent implements OnInit {
             })
     }
 
-    public addUser() {
-        this.toggleLoadingBlock();
-        this._userService.getAllUsers()
-            .then((result) => {
-                this.toggleLoadingBlock();
-                this.users = result;
+    public addUser( newUser: User ) {
+        this._userService.addUser( newUser )
+            .then((user) => {
+                this.notify('User was successfully created.', 'green');
+                this.users.unshift( user );
+                this.newUser = new User();
             })
             .catch((error) => {
-                this.toggleLoadingBlock();
+                this.notify('Validation error', 'red');
                 console.log(error);
             })
     }

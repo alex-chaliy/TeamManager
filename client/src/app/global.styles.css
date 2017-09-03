@@ -230,7 +230,7 @@ body, html {
 /* loadingBlock - end */
 
 
-/*  - start */
+/* notifyBlock - start */
   .notifyBlock {
     position: fixed;
     z-index: 9998;
@@ -262,7 +262,7 @@ body, html {
     display: table;
     width: 100%;
   }
-/* loadingBlock - end */
+/* notifyBlock - end */
 
 
 /* empty block - start */
@@ -282,7 +282,7 @@ body, html {
 /* table */
   ._table {
     margin: 20px 0;
-    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, .3);
   }
   ._table--minimized ._table-body {
     overflow: hidden;
@@ -309,3 +309,58 @@ body, html {
     color: inherit;
   }
 /* end - table */
+
+
+/* topBlock - start */
+  .topBlock {
+    display: table;
+    width: 100%;
+    clear: both;
+    padding: 16px 0 0;
+  }
+/* topBlock - end */
+
+/* searchBlock - start */
+  .searchBlock {
+    float: right;
+    display: table;
+
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
+    border-radius: 16px;
+  }
+
+  .searchBlock-input {
+    transition: .2s background-color;
+    display: block;
+    width: 200px;
+    height: 32px;
+    float: left;
+
+    border: none;
+    outline: none;
+    border-radius: 0 16px 16px 0;
+    background-color: #ddd;
+  }
+  .searchBlock-input:focus { background-color: #f9f9f9; }
+  .searchBlock-button {
+    transition: .2s background-color;
+    float: left;
+    height: 32px;
+    width: 42px;
+    padding: 2px 12px;
+    background-color: #ddd;
+    color: #777;
+
+    border: none;
+    outline: none;
+    border-radius: 16px 0 0 16px;
+  }
+  .searchBlock-button:hover {
+    background-color: #555;
+    color: #fff;
+  }
+  .searchBlock-button:active {
+    background-color: #000;
+    color: #eee;
+  }
+/* searchBlock - end */
