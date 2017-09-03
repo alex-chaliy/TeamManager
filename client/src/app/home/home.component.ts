@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../models/user.model';
 import { UserService } from '../services/data/user.service';
 import { NavigationCancel, Router } from '@angular/router';
+import { ArrayService } from '../services/array.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -14,15 +15,22 @@ import * as _ from 'lodash';
 })
 export class HomeComponent implements OnInit {
     public users: User[] = [];
+
     public indexUserToUpdate: number;
     public prevStateUserToUpdate: User;
     @Input() public userToUpdate: User;
-    private editMode: boolean = false;
+    @Input() public newUser: User;
+
+    writeActive: boolean = false;
+    // modes: 'edit', 'add'
+    private mode: string;
+
     public notifyText: string;
     public isUsersTableMinimized: boolean = false;
 
     constructor(
         public _userService: UserService,
+        public _arrayService: ArrayService,
         private _router: Router
     ) {}
 
@@ -93,12 +101,18 @@ export class HomeComponent implements OnInit {
         this.indexUserToUpdate = userIndex;
         this.prevStateUserToUpdate = JSON.parse( JSON.stringify( user ));
         this.userToUpdate = user;
-        this.editMode = true;
+        this.writeActive = true;
+        this.mode = 'edit';
     }
-    public cancelEdit() {
+    public startAdd() {
+        this.newUser = new User();
+        this.writeActive = true;
+        this.mode = 'add';
+    }
+    public cancelWrite() {
         this.userToUpdate = new User();
         // this.users[ this.indexUserToUpdate ] = this.prevStateUserToUpdate;
-        this.editMode = false;
+        this.writeActive = false;
     }
     public updateUser( user: User ) {
         this._userService.updateUser( user, user.idUser )

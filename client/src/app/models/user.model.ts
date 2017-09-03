@@ -6,8 +6,8 @@ export interface IUser {
      */
     idUser: string,
     role: string, // see @roles
-	nameFirst: string,
-	nameLast: string,
+	name_first: string,
+	name_last: string,
 	age: number,
 	skill: {
 		level: number,
@@ -18,8 +18,8 @@ export interface IUser {
 export class User implements IUser {
     idUser: string;
     role: string;
-	nameFirst: string;
-	nameLast: string;
+	name_first: string;
+	name_last: string;
 	age: number;
 	skill: {
 		level: number,
@@ -29,8 +29,8 @@ export class User implements IUser {
     constructor(
         idUser?: string,
         role?: string,
-        nameFirst?: string,
-        nameLast?: string,
+        name_first?: string,
+        name_last?: string,
         age?: number,
         skill?: {
             level?: number,
@@ -39,8 +39,8 @@ export class User implements IUser {
     ) {
         this.idUser = idUser || '';
         this.role = role || '';
-        this.nameFirst = nameFirst || '';
-        this.nameLast = nameLast || '';
+        this.name_first = name_first || '';
+        this.name_last = name_last || '';
         this.age = age || 18;
         skill = skill || {};
         this.skill = {
