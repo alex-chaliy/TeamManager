@@ -10,6 +10,8 @@ import {
 import { ArrayService } from '../services/array.service';
 import * as _ from 'lodash';
 
+import * as D3 from 'd3';
+
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
@@ -34,6 +36,8 @@ export class HomeComponent implements OnInit {
     public isUsersTableMinimized: boolean = false;
     @Input() public searchValue: string;
     public activeTab: string;
+
+    public pie: any;
 
     constructor(
         public _userService: UserService,
@@ -175,4 +179,5 @@ export class HomeComponent implements OnInit {
         // this._router.navigate(['/home', { tab: tabName }]);
         this._router.navigate(['/home', { tab: tabName }]);
     }
+
 }
