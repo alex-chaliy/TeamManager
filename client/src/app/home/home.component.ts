@@ -24,8 +24,7 @@ export class HomeComponent implements OnInit {
 
     public indexUserToUpdate: number;
     public prevStateUserToUpdate: User;
-    @Input() public userToUpdate: User;
-    @Input() public newUser: User;
+    @Input() public userToWrite: User;
 
     writeActive: boolean = false;
     // modes: 'edit', 'add'
@@ -90,7 +89,7 @@ export class HomeComponent implements OnInit {
     }
 
     public getUsers() {
-        this.userToUpdate = new User();
+        this.userToWrite = new User();
         this.toggleLoadingBlock();
         this._userService.getAllUsers()
             .then((result) => {
@@ -104,12 +103,12 @@ export class HomeComponent implements OnInit {
             })
     }
 
-    public addUser( newUser: User ) {
-        this._userService.addUser( newUser )
+    public addUser( userToWrite: User ) {
+        this._userService.addUser( userToWrite )
             .then((user) => {
                 this.notify('User was successfully created.', 'green');
                 this.users.unshift( user );
-                this.newUser = new User();
+                this.userToWrite = new User();
             })
             .catch((error) => {
                 this.notify('Validation error', 'red');
@@ -120,17 +119,16 @@ export class HomeComponent implements OnInit {
     public startEdit( user: User, userIndex: number ) {
         this.indexUserToUpdate = userIndex;
         this.prevStateUserToUpdate = JSON.parse( JSON.stringify( user ));
-        this.userToUpdate = user;
+        this.userToWrite = user;
         this.writeActive = true;
         this.mode = 'edit';
     }
     public startAdd() {
-        this.newUser = new User();
         this.writeActive = true;
         this.mode = 'add';
     }
     public cancelWrite() {
-        this.userToUpdate = new User();
+        this.userToWrite = new User();
         // this.users[ this.indexUserToUpdate ] = this.prevStateUserToUpdate;
         this.writeActive = false;
     }

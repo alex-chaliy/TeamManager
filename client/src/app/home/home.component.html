@@ -26,41 +26,39 @@
         </div>
 
         <!--debug-->
-            <!--<br/> {{ newUser | json }} <br/>-->
-            <!--<br/> {{ userToUpdate | json }} <br/>-->
+            <!--<br/> {{ userToWrite | json }} <br/>-->
             <!--{{ prevStateUserToUpdate | json }}-->
         <!-- end - debug-->
         <div class="writeBlock" *ngIf="writeActive">
             <h4 class="captionBlock-title text-{{ mode == 'edit' ? 'blue' : 'green' }}">
                 {{ mode == 'edit' ? 
-                   ('Edit ' + userToUpdate.name_first + ' ' + userToUpdate.name_last) : 
+                   ('Edit ' + userToWrite.name_first + ' ' + userToWrite.name_last) : 
                    'Create a new user' }}
             </h4>
             <div class="_table-row _table-row--grey clearfix">
                 <div class="_table-field col-sm-2">
                     <label for="name_first"> First Name </label>
-                    <!--<input id="name_first" class="form-control" type="text" [(ngModel)]="userToUpdate.name_first">-->
-                    <input id="name_first" class="form-control" type="text" [(ngModel)]="mode == 'edit' ? userToUpdate.name_first : newUser.name_first">
+                    <input id="name_first" class="form-control" type="text" [(ngModel)]="userToWrite.name_first">
                 </div>
                 <div class="_table-field col-sm-2">
                     <label for="name_last"> Last Name </label>
-                    <input id="name_last" class="form-control" type="text" [(ngModel)]="mode == 'edit' ? userToUpdate.name_last : newUser.name_last">
+                    <input id="name_last" class="form-control" type="text" [(ngModel)]="userToWrite.name_last">
                 </div>
                 <div class="_table-field col-sm-2">
                     <label for="age"> Age </label>
-                    <input id="age" class="form-control" type="text" type="number" min="0" max="150" [(ngModel)]="mode == 'edit' ? userToUpdate.age : newUser.age">
+                    <input id="age" class="form-control" type="text" type="number" min="0" max="150" [(ngModel)]="userToWrite.age">
                 </div>
                 <div class="_table-field col-sm-2">
                     <label for="skill_name"> Skill Name </label>
-                    <input id="skill_name" class="form-control" type="text" [(ngModel)]="mode == 'edit' ? userToUpdate.skill.name : newUser.skill.name">
+                    <input id="skill_name" class="form-control" type="text" [(ngModel)]="userToWrite.skill.name">
                 </div>
                 <div class="_table-field col-sm-2">
                     <label for="skill_level"> Skill Level </label>
-                    <input id="skill_level" class="form-control" type="number" min="1" max="3" [(ngModel)]="mode == 'edit' ? userToUpdate.skill.level : newUser.skill.level">
+                    <input id="skill_level" class="form-control" type="number" min="1" max="3" [(ngModel)]="userToWrite.skill.level">
                 </div>
                 <div class="_table-field col-sm-2">
                     <button class="_btn pull-left _btn--{{ mode == 'edit' ? 'blue' : 'green-1' }}"
-                            (click)="mode == 'edit' ? updateUser( userToUpdate ) : addUser( newUser )"
+                            (click)="mode == 'edit' ? updateUser( userToWrite ) : addUser( newUser )"
                             title="mode == 'edit' ? 'Save Changes' : 'Save new User'">
                             <i class="material-icons">save</i>
                     </button>
