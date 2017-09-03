@@ -4,7 +4,23 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="_tabs">
+    <button class="_tabs-item" [ngClass]="{ '_tabs-item--active' : activeTab === 'people' }" (click)="setTab('people')">
+        People
+    </button>
+    <button class="_tabs-item" [ngClass]="{ '_tabs-item--active' : activeTab === 'visuals' }" (click)="setTab('visuals')">
+        Visuals
+    </button>
+</div>
+
+<div class="container-fluid" [hidden]="activeTab !== 'people'">
+        <div class="topBlock">
+            <div class="searchBlock">
+                <button class="searchBlock-button" (click)="filterUsers()" > <i class="material-icons"> search </i> </button>
+                <input type="text" class="form-control searchBlock-input" placeholder="Name, Surname or Skill..." [(ngModel)]="searchValue">
+            </div>
+        </div>
+
         <div class="captionBlock" *ngIf="!users[0]">
             <h2 class="captionBlock-title"> There is no employees now. </h2>
         </div>
@@ -53,13 +69,6 @@
             </div>
         </div>
 
-        <div class="topBlock">
-            <div class="searchBlock">
-                <button class="searchBlock-button" (click)="filterUsers()" > <i class="material-icons"> search </i> </button>
-                <input type="text" class="form-control searchBlock-input" placeholder="Name, Surname or Skill..." [(ngModel)]="searchValue">
-            </div>
-        </div>
-
         <div class="_table" [ngClass]="{ '_table--minimized' : isUsersTableMinimized }">
             <div class="_table-row _table-row--dark clearfix">
                 <div class="_table-field col-sm-2"> Name </div>
@@ -93,6 +102,12 @@
         </div>
 
 </div>
+
+
+<div class="container-fluid" [hidden]="activeTab !== 'visuals'">
+    <h2 class="captionBlock-title"> There will be Pie Charts. </h2>
+</div>
+
 
 <div class="_js_loadingBlock loadingBlock loadingBlock--invisible">
     <div class="loadingBlock-inside">

@@ -1,7 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../models/user.model';
 import { UserService } from '../services/data/user.service';
-import { NavigationCancel, Router } from '@angular/router';
+import {
+    NavigationCancel,
+    Router,
+    ActivatedRoute,
+    ParamMap
+} from '@angular/router';
 import { ArrayService } from '../services/array.service';
 import * as _ from 'lodash';
 
@@ -29,15 +34,27 @@ export class HomeComponent implements OnInit {
     public notifyText: string;
     public isUsersTableMinimized: boolean = false;
     @Input() public searchValue: string;
+    public activeTab: string;
 
     constructor(
         public _userService: UserService,
         public _arrayService: ArrayService,
-        private _router: Router
+        private _router: Router,
+        private _activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
         this.getUsers();
+
+        console.log( 'parsed Url is : ', this._router.url, this._router.parseUrl( this._router.url ) );
+
+
+        this._activatedRoute.params.subscribe( (params: ParamMap) => {
+            this.activeTab = params['tab'];
+            if ( !this.activeTab )
+                this._router.navigate(['/home', { tab: 'people' }]);
+            console.log( 'current tab is : ', this.activeTab );
+        })
 
         /* fix width troubles - start */
             // резались карточки со стримами на Iphone 5 (w: 320px)
@@ -153,5 +170,11 @@ export class HomeComponent implements OnInit {
             return expression;
             //  || sv == user.name_last || sv == user.skill.name
         });
+    }
+
+    public setTab( tabName: string ) {
+        this.activeTab = tabName;
+        // this._router.navigate(['/home', { tab: tabName }]);
+        this._router.navigate(['/home', { tab: tabName }]);
     }
 }
