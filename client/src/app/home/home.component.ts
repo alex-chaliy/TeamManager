@@ -43,6 +43,12 @@ export class HomeComponent implements OnInit {
     public skillsData: Array<IChartItem>;
     public skillsTitle: string;
 
+    public levelsData: Array<IChartItem>;
+    public levelsTitle: string;
+
+    public agesData: Array<IChartItem>;
+    public agesTitle: string;
+
     constructor(
         public _userService: UserService,
         public _arrayService: ArrayService,
@@ -100,20 +106,91 @@ export class HomeComponent implements OnInit {
     public getUsers() {
         this.userToWrite = new User();
         this.toggleLoadingBlock();
+
         this._userService.getAllUsers()
             .then((result) => {
                 this.toggleLoadingBlock();
                 this.users = result;
                 this.filteredUsers = result;
 
-                this.skillsData = _.map(
-                    this.users, (user: IUser) => {
-                        return {
-                            name: user.skill.name, 
-                            number: user.skill.level
-                        }
+                /**
+                 * TODO: move skills, level & skill calculations to separate methods
+                 */ 
+                // calculate skills
+                    let rawSkills: Array<IChartItem> = [];
+                    _.forEach( this.users, (_u: IUser) => {
+                        rawSkills.push( { name: _u.skill.name,  number: 0 } );
                     });
-                this.skillsTitle = 'by Skill';
+
+                    this.skillsData = _.uniqBy( rawSkills, 'name' );
+
+                    // debug
+                        console.log( 'raw skills' , rawSkills);
+                        console.log( 'clean skills' , this.skillsData);
+
+                    let i = 0;
+                    while( i < this.skillsData.length ) {
+                        let j = 0;
+                        while( j < rawSkills.length ) {
+                            if( this.skillsData[i].name === rawSkills[j].name )
+                                this.skillsData[i].number++;
+                            j++;
+                        }
+                        i++;
+                    }
+                    console.log( 'counted skills' , this.skillsData);
+                    this.skillsTitle = 'by Skill';
+                // end calculate skills
+
+                // calculate levels
+                    let rawLevels: Array<IChartItem> = [];
+                    _.forEach( this.users, (_u: IUser) => {
+                        rawLevels.push( { name: _u.skill.name,  number: 0 } );
+                    });
+
+                    this.levelsData = _.uniqBy( rawLevels, 'name' );
+
+                    // debug
+                        console.log( 'raw levels' , rawLevels);
+                        console.log( 'clean levels' , this.levelsData);
+
+                    i = 0;
+                    while( i < this.levelsData.length ) {
+                        let j = 0;
+                        while( j < rawLevels.length ) {
+                            if( this.levelsData[i].name === rawLevels[j].name )
+                                this.levelsData[i].number += this.users[j].skill.level;
+                            j++;
+                        }
+                        i++;
+                    }
+                    console.log( 'counted levels' , this.levelsData);
+                    this.levelsTitle = 'by Level';
+                // end - calculate levels
+
+                // calculate ages
+                    this.agesData = [
+                        { name: '18-25',  number: 0 },
+                        { name: '26-32',  number: 0 },
+                        { name: '33-100', number: 0 }
+                    ];
+
+                    i = 0;
+                    while( i < this.users.length ) {
+                        if( this.users[i].age >= 18 && this.users[i].age <= 25 )
+                            this.agesData[0].number++;
+
+                        else if( this.users[i].age >= 26 && this.users[i].age <= 32 )
+                            this.agesData[1].number++;
+
+                        else if( this.users[i].age >= 33 && this.users[i].age <= 100 )
+                            this.agesData[2].number++;
+                        i++;
+                    }
+                    console.log( 'counted ages' , this.agesData);
+                    this.agesTitle = 'by Age';
+                // end calculate ages
+
             })
             .catch((error) => {
                 this.toggleLoadingBlock();
