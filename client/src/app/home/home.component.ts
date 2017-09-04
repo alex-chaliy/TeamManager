@@ -100,19 +100,37 @@ export class HomeComponent implements OnInit {
     public getUsers() {
         this.userToWrite = new User();
         this.toggleLoadingBlock();
+
         this._userService.getAllUsers()
             .then((result) => {
                 this.toggleLoadingBlock();
                 this.users = result;
                 this.filteredUsers = result;
 
-                this.skillsData = _.map(
-                    this.users, (user: IUser) => {
-                        return {
-                            name: user.skill.name, 
-                            number: user.skill.level
-                        }
-                    });
+                let rawSkills: Array<IChartItem> = [];
+
+                _.forEach( this.users, (_u: IUser) => {
+                    rawSkills.push( { name: _u.skill.name,  number: 0 } );
+                });
+
+                this.skillsData = _.uniqBy( rawSkills, 'name' );
+
+                // debug
+                    console.log( 'raw skills' , rawSkills);
+                    console.log( 'clean skills' , this.skillsData);
+
+                let i = 0;
+                while( i < this.skillsData.length ) {
+                    let j = 0;
+                    while( j < rawSkills.length ) {
+                        if( this.skillsData[i].name === rawSkills[j].name )
+                            this.skillsData[i].number++;
+                        j++;
+                    }
+                    i++;
+                }
+
+                console.log( 'counted skills' , this.skillsData);
                 this.skillsTitle = 'by Skill';
             })
             .catch((error) => {
