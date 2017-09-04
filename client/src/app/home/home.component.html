@@ -111,13 +111,19 @@
         ></pieChart>
     </div>
 
-    <!--<div class="col-sm-4">
-        <pieChart [chartSettings]="{title: 'by Level', data: []}"></pieChart>
+    <div class="col-sm-4">
+        <pieChart
+            [chartData]="levelsData"
+            [chartTitle]="levelsTitle"
+        ></pieChart>
     </div>
 
     <div class="col-sm-4">
-        <pieChart [chartSettings]="{title: 'by Age', data: []}"></pieChart>
-    </div>-->
+        <pieChart
+            [chartData]="agesData"
+            [chartTitle]="agesTitle"
+        ></pieChart>
+    </div>
 </div>
 
 
