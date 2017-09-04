@@ -43,6 +43,12 @@ export class HomeComponent implements OnInit {
     public skillsData: Array<IChartItem>;
     public skillsTitle: string;
 
+    public levelsData: Array<IChartItem>;
+    public levelsTitle: string;
+
+    public agesData: Array<IChartItem>;
+    public agesTitle: string;
+
     constructor(
         public _userService: UserService,
         public _arrayService: ArrayService,
@@ -107,31 +113,60 @@ export class HomeComponent implements OnInit {
                 this.users = result;
                 this.filteredUsers = result;
 
-                let rawSkills: Array<IChartItem> = [];
+                /**
+                 * TODO: move skills, level & skill calculations to separate methods
+                 */ 
+                // calculate skills
+                    let rawSkills: Array<IChartItem> = [];
+                    _.forEach( this.users, (_u: IUser) => {
+                        rawSkills.push( { name: _u.skill.name,  number: 0 } );
+                    });
 
-                _.forEach( this.users, (_u: IUser) => {
-                    rawSkills.push( { name: _u.skill.name,  number: 0 } );
-                });
+                    this.skillsData = _.uniqBy( rawSkills, 'name' );
 
-                this.skillsData = _.uniqBy( rawSkills, 'name' );
+                    // debug
+                        console.log( 'raw skills' , rawSkills);
+                        console.log( 'clean skills' , this.skillsData);
 
-                // debug
-                    console.log( 'raw skills' , rawSkills);
-                    console.log( 'clean skills' , this.skillsData);
-
-                let i = 0;
-                while( i < this.skillsData.length ) {
-                    let j = 0;
-                    while( j < rawSkills.length ) {
-                        if( this.skillsData[i].name === rawSkills[j].name )
-                            this.skillsData[i].number++;
-                        j++;
+                    let i = 0;
+                    while( i < this.skillsData.length ) {
+                        let j = 0;
+                        while( j < rawSkills.length ) {
+                            if( this.skillsData[i].name === rawSkills[j].name )
+                                this.skillsData[i].number++;
+                            j++;
+                        }
+                        i++;
                     }
-                    i++;
-                }
+                    console.log( 'counted skills' , this.skillsData);
+                    this.skillsTitle = 'by Skill';
+                // end calculate skills
 
-                console.log( 'counted skills' , this.skillsData);
-                this.skillsTitle = 'by Skill';
+                // calculate levels
+                    let rawLevels: Array<IChartItem> = [];
+                    _.forEach( this.users, (_u: IUser) => {
+                        rawLevels.push( { name: _u.skill.name,  number: 0 } );
+                    });
+
+                    this.levelsData = _.uniqBy( rawLevels, 'name' );
+
+                    // debug
+                        console.log( 'raw levels' , rawLevels);
+                        console.log( 'clean levels' , this.levelsData);
+
+                    i = 0;
+                    while( i < this.levelsData.length ) {
+                        let j = 0;
+                        while( j < rawLevels.length ) {
+                            if( this.levelsData[i].name === rawLevels[j].name )
+                                this.levelsData[i].number += this.users[j].skill.level;
+                            j++;
+                        }
+                        i++;
+                    }
+                    console.log( 'counted levels' , this.levelsData);
+                    this.levelsTitle = 'by Level';
+                // end - calculate levels
             })
             .catch((error) => {
                 this.toggleLoadingBlock();
