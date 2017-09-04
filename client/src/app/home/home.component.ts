@@ -167,6 +167,30 @@ export class HomeComponent implements OnInit {
                     console.log( 'counted levels' , this.levelsData);
                     this.levelsTitle = 'by Level';
                 // end - calculate levels
+
+                // calculate ages
+                    this.agesData = [
+                        { name: '18-25',  number: 0 },
+                        { name: '26-32',  number: 0 },
+                        { name: '33-100', number: 0 }
+                    ];
+
+                    i = 0;
+                    while( i < this.users.length ) {
+                        if( this.users[i].age >= 18 && this.users[i].age <= 25 )
+                            this.agesData[0].number++;
+
+                        else if( this.users[i].age >= 26 && this.users[i].age <= 32 )
+                            this.agesData[1].number++;
+
+                        else if( this.users[i].age >= 33 && this.users[i].age <= 100 )
+                            this.agesData[2].number++;
+                        i++;
+                    }
+                    console.log( 'counted ages' , this.agesData);
+                    this.agesTitle = 'by Age';
+                // end calculate ages
+
             })
             .catch((error) => {
                 this.toggleLoadingBlock();
