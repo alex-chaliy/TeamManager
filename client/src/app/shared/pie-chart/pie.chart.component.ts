@@ -1,12 +1,18 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, ElementRef, ViewChild, AfterViewInit, Input } from "@angular/core";
 import * as D3 from "d3";
 
 @Component({
+    inputs: ['pieConfig'],
     selector: "pieChart",
-    templateUrl: "./pie.chart.component.html"
+    templateUrl: "./pie.chart.component.html",
+    styleUrls: [
+        './pie.chart.component.css'
+    ]
 })
 
 export class PieChartComponent implements AfterViewInit {
+    @Input() pieConfig: any = {};
+
     @ViewChild("containerPieChart") element: ElementRef;
 
     private host: D3.Selection;
