@@ -103,9 +103,21 @@
 
 
 <div class="container-fluid" [hidden]="activeTab !== 'visuals'">
-    <h2 class="captionBlock-title"> There will be Pie Charts. </h2>
 
-    <div id="pieChart"></div>
+    <div class="col-sm-4">
+        <h4 class="captionBlock-title"> by Skill </h4>
+        <pieChart></pieChart>
+    </div>
+
+    <div class="col-sm-4">
+        <h4 class="captionBlock-title"> by Level </h4>
+        <pieChart></pieChart>
+    </div>
+
+    <div class="col-sm-4">
+        <h4 class="captionBlock-title"> by Age </h4>
+        <pieChart></pieChart>
+    </div>
 </div>
 
 

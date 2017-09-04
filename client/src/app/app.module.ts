@@ -7,6 +7,7 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { PieChartComponent } from './shared/pie-chart/pie.chart.component';
 import { HomeComponent } from './home/home.component';
 import { NoContentComponent } from './no-content/no-content.component';
 import { ROUTES } from './app.routes';
@@ -22,6 +23,7 @@ import { ArrayService } from './services/array.service';
 @NgModule({
     declarations: [
         AppComponent,
+        PieChartComponent,
         HomeComponent,
         NoContentComponent
     ],
