@@ -105,16 +105,19 @@
 <div class="container-fluid" [hidden]="activeTab !== 'visuals'">
 
     <div class="col-sm-4">
-        <pieChart [pieConfig]="{title: 'by Skill'}"></pieChart>
+        <pieChart
+            [chartData]="skillsData"
+            [chartTitle]="skillsTitle"
+        ></pieChart>
+    </div>
+
+    <!--<div class="col-sm-4">
+        <pieChart [chartSettings]="{title: 'by Level', data: []}"></pieChart>
     </div>
 
     <div class="col-sm-4">
-        <pieChart [pieConfig]="{title: 'by Level'}"></pieChart>
-    </div>
-
-    <div class="col-sm-4">
-        <pieChart [pieConfig]="{title: 'by Age'}"></pieChart>
-    </div>
+        <pieChart [chartSettings]="{title: 'by Age', data: []}"></pieChart>
+    </div>-->
 </div>
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../models/user.model';
+import { User, IUser } from '../models/user.model';
 import { UserService } from '../services/data/user.service';
 import {
     NavigationCancel,
@@ -11,6 +11,9 @@ import { ArrayService } from '../services/array.service';
 import * as _ from 'lodash';
 
 import * as D3 from 'd3';
+
+import { ChartSettings } from '../shared/pie-chart/chart.settings.model';
+import { IChartSettings, IChartItem } from '../shared/pie-chart/chart.interfaces';
 
 @Component({
     selector: 'app-home',
@@ -37,7 +40,8 @@ export class HomeComponent implements OnInit {
     @Input() public searchValue: string;
     public activeTab: string;
 
-    public pie: any;
+    public skillsData: Array<IChartItem>;
+    public skillsTitle: string;
 
     constructor(
         public _userService: UserService,
@@ -49,8 +53,9 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.getUsers();
 
-        console.log( 'parsed Url is : ', this._router.url, this._router.parseUrl( this._router.url ) );
-
+        // debug
+            console.log( 'parsed Url is : ', this._router.url, this._router.parseUrl( this._router.url ) );
+        // debug - end
 
         this._activatedRoute.params.subscribe( (params: ParamMap) => {
             this.activeTab = params['tab'];
@@ -100,6 +105,15 @@ export class HomeComponent implements OnInit {
                 this.toggleLoadingBlock();
                 this.users = result;
                 this.filteredUsers = result;
+
+                this.skillsData = _.map(
+                    this.users, (user: IUser) => {
+                        return {
+                            name: user.skill.name, 
+                            number: user.skill.level
+                        }
+                    });
+                this.skillsTitle = 'by Skill';
             })
             .catch((error) => {
                 this.toggleLoadingBlock();
