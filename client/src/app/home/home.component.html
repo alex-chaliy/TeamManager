@@ -58,7 +58,7 @@
                 </div>
                 <div class="_table-field col-sm-2">
                     <button class="_btn pull-left _btn--{{ mode == 'edit' ? 'blue' : 'green-1' }}"
-                            (click)="mode == 'edit' ? updateUser( userToWrite ) : addUser( newUser )"
+                            (click)="mode == 'edit' ? updateUser( userToWrite ) : addUser( userToWrite )"
                             title="mode == 'edit' ? 'Save Changes' : 'Save new User'">
                             <i class="material-icons">save</i>
                     </button>
