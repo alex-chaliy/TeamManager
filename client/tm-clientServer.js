@@ -4,9 +4,9 @@
  *
  *    * https://stackoverflow.com/a/34864585 - might be working
  *
- *    1 - https://stackoverflow.com/questions/34847972/how-to-handle-angular2-route-path-in-nodejs
- *    2 - https://stackoverflow.com/questions/17456729/how-to-redirect-to-single-page-web-app-in-express-for-node
- *    3 - https://stackoverflow.com/questions/34847972/how-to-handle-angular2-route-path-in-nodejs - from Danya Moroz
+ *    + https://stackoverflow.com/a/19171253/7455192
+ *    - https://stackoverflow.com/questions/17456729/how-to-redirect-to-single-page-web-app-in-express-for-node
+ *    - https://stackoverflow.com/questions/34847972/how-to-handle-angular2-route-path-in-nodejs
 */
 
 'use strict';
@@ -70,4 +70,6 @@ const server = app.listen(
 				return;
 			}
 		/* get Static files - end */
+
+
 	});

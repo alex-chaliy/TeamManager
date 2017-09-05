@@ -20,6 +20,10 @@ import { ReformatStringService } from './services/reformat.string.service';
 import { ArrayService } from './services/array.service';
 
 
+// HOTFIX: deploy routing
+// you must use non-hash location strategy
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -36,7 +40,12 @@ import { ArrayService } from './services/array.service';
         RouterModule.forRoot(ROUTES)
     ],
     providers: [
-        { provide: APP_BASE_HREF, useValue: '/' }, // instead of <base href="/">
+
+        // HOTFIX: deploy routing
+        // you must use non-hash location strategy
+        {provide: LocationStrategy, useClass: HashLocationStrategy},
+
+        // { provide: APP_BASE_HREF, useValue: '/' }, // instead of <base href="/">
 
         HttpService,
         UserService,
